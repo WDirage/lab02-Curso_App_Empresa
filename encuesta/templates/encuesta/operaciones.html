@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de operaciones</title><style>
+body{font-family:Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 18px;color:#222}
+nav{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 28px}
+a{color:#175cd3} .panel{border:1px solid #999;padding:22px;border-radius:4px;margin:18px 0}
+label{display:inline-block;min-width:210px;margin:9px 0} input,select{padding:7px;min-width:180px;box-sizing:border-box}
+button{padding:9px 16px;background:#175cd3;color:#fff;border:0;border-radius:4px;cursor:pointer}
+.resultado{background:#f4f7fb;padding:14px;border-radius:4px;overflow-wrap:anywhere} .error{color:#b42318}
+</style></head><body><nav><a href="/encuesta/">Formulario original</a><a href="/encuesta/operaciones/">Calculadora</a><a href="/encuesta/cilindro/">Volumen del cilindro</a></nav>
+<h1>Calculadora de operaciones</h1>
+<p>Introduce dos números, elige una operación y pulsa calcular.</p>
+<div class="panel"><form method="post">
+{% csrf_token %}
+<div><label for="numero1">Primer número:</label><input id="numero1" name="numero1" type="number" step="any" required value="{{ request.POST.numero1|default:'' }}"></div>
+<div><label for="numero2">Segundo número:</label><input id="numero2" name="numero2" type="number" step="any" required value="{{ request.POST.numero2|default:'' }}"></div>
+<div><label for="operacion">Operación:</label><select id="operacion" name="operacion"><option value="suma">Suma (+)</option><option value="resta" {% if request.POST.operacion == 'resta' %}selected{% endif %}>Resta (−)</option><option value="multiplicacion" {% if request.POST.operacion == 'multiplicacion' %}selected{% endif %}>Multiplicación (×)</option></select></div>
+<button type="submit">Calcular</button></form></div>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+{% if resultado %}<div class="resultado"><h2>Resultado</h2><p>{{ resultado.numero1 }} {{ resultado.simbolo }} {{ resultado.numero2 }} = <strong>{{ resultado.valor }}</strong></p></div>{% endif %}
+</body></html>

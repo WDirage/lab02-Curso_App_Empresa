@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ titulo }}</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:850px;margin:35px auto;padding:0 18px;color:#222}
+nav{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 26px}
+nav a,.btn{background:#175cd3;color:white;padding:10px 14px;border-radius:5px;text-decoration:none;border:0;cursor:pointer}
+form{line-height:2} input,select{padding:5px;margin:3px}
+</style></head><body>
+<h2>{{ titulo }}</h2>
+<nav><a href="{% url 'encuesta:operaciones' %}">Calculadora de operaciones</a><a href="{% url 'encuesta:cilindro' %}">Volumen del cilindro</a></nav>
+<form action="{% url 'encuesta:enviar' %}" method="post">
+    {% csrf_token %}
+    Nombre:
+    <input type="text" name="nombre" maxlength="50"><br>
+    Contraseña:
+    <input type="password" name="password"><br>
+    Educacion:
+    <select name="educacion">
+        <option value="sin-estudios">Sin estudios</option>
+        <option value="educacion-obligatoria" selected="selected">Educación Obligatoria</option>
+        <option value="formacion-profesional">Formación profesional</option>
+        <option value="universidad">Universidad</option>
+    </select> <br>
+    Nacionalidad:
+    <input type="radio" name="nacionalidad" value="hispana">Hispana</input>
+    <input type="radio" name="nacionalidad" value="otra">Otra</input><br>
+    Idiomas:
+    <input type="checkbox" name="idiomas" value="español" checked="checked">Español</input>
+    <input type="checkbox" name="idiomas" value="inglés">Inglés</input>
+    <input type="checkbox" name="idiomas" value="francés">Francés</input>
+    <input type="checkbox" name="idiomas" value="alemán">Alemán</input><br>
+    Email:
+    <input type="text" name="email"><br>
+    Sitio Web:
+    <input type="text" name="sitioweb"><br>
+    <!-- Botón de enviar -->
+    <input type="submit" name="submit" value="Enviar">
+</form>\n</body></html>\n
